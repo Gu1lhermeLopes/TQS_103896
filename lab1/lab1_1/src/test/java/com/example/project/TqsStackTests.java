@@ -10,57 +10,103 @@
 
 package com.example.project;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.NoSuchElementException;
+
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.params.ParameterizedTest;
-//import org.junit.jupiter.params.provider.CsvSource;
+
 
 class TqsStackTests {
 
 	@Test
-	@DisplayName("NEW==EMPTY")
-	void onConstruction() {
-		TqsStack s = new TqsStack();
-		assertEquals(true, s.isEmpty(), "new stack shoud be empty");
-		assertEquals(0, s.size(), "shoud be 0");
+	@DisplayName("a) Empty on constration")
+	void emptyConstruction() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		assertTrue(s.isEmpty());
 	}
+
 	@Test
+	@DisplayName("b) Size 0 on constration")
+	void sizeConstruction() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		assertEquals(0, s.size());
+	}
+
+	@Test
+	@DisplayName("c) size n after n pushes")
 	void checkSize() {
-		TqsStack s = new TqsStack();
-		s.push(0);
-		assertEquals(1, s.size(), "shoud be 1");
-		s.push(0);
-		assertEquals(2, s.size(), "shoud be 2");
-	}
-
-	@Test
-	void checkPop() {
-		TqsStack s = new TqsStack();
+		TqsStack<Integer> s = new TqsStack<Integer>();
 		s.push(0);
 		s.push(1);
-
-		assertEquals(1, s.pop(), "shoud be 1");
-		assertEquals(1, s.size(), "shoud be 1");
+		s.push(2);
+		s.push(3);
+		s.push(4);
+		assertEquals(5, s.size());
 	}
 
 	@Test
-	void checkPeek() {
-		TqsStack s = new TqsStack();
-		s.push(0);
-		s.push(1);
-
-		assertEquals(1, s.peek(), "shoud be 1");
-		assertEquals(2, s.size(), "shoud be 2");
+	@DisplayName("d) push x and pop x")
+	void pushXpop() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		Integer x=3;
+		s.push(x);
+		assertEquals(x,s.pop());
 	}
 
 	@Test
+	@DisplayName("e) push x and peek x")
+	void pushXpeek() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		Integer x=3;
+		s.push(x);
+
+		int sizeBefore=s.size();
+		assertEquals(x,s.peek());
+		int sizeAfter=s.size();
+		assertEquals(sizeBefore,sizeAfter);
+
+	}
+
+	@Test
+	@DisplayName("f) size N pop N")
+	void sizeNpop() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		Integer n=3;
+		for (int i = 0; i < n; i++) {
+			s.push(n);
+		}
+		assertEquals(n,s.size());
+		for (int i = 0; i < n; i++) {
+			s.pop();
+		}
+		assertEquals(0,s.size());
+	}
+
+	@Test
+	@DisplayName("g) pop empty stack")
+	void EmptyPop() {
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		assertThrows(NoSuchElementException.class,() -> s.pop());
+	}
+
+	@Test
+	@DisplayName("h) peek empty stack")
 	void EmptyPeek() {
-		TqsStack s = new TqsStack();
-	
-
-		assertEquals(null, s.peek(), "shoud be null");
-
+		TqsStack<Integer> s = new TqsStack<Integer>();
+		assertThrows(NoSuchElementException.class,() -> s.peek());
 	}
+
+	@Test
+	@DisplayName("h) check full limited stack")
+	void LimitedStack() {
+		TqsStack<Integer> s = new TqsStack<Integer>(2);
+		s.push(1);
+		s.push(2);
+		assertThrows(IllegalStateException.class,() -> s.push(3));
+	}
+
+
 }

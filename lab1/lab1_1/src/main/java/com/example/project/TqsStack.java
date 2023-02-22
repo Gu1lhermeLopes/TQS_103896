@@ -1,22 +1,19 @@
-/*
- * Copyright 2015-2022 the original author or authors.
- *
- * All rights reserved. This program and the accompanying materials are
- * made available under the terms of the Eclipse Public License v2.0 which
- * accompanies this distribution and is available at
- *
- * http://www.eclipse.org/legal/epl-v20.html
- */
-
 package com.example.project;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
-public class TqsStack {
-	private LinkedList<Integer> ll;
+public class TqsStack<T> {
+	private LinkedList<T> ll = new LinkedList<T>();
+	private int limit=0;
 
 	public TqsStack() {
-		ll = new LinkedList<Integer>();
+		ll = new LinkedList<>();
+	}
+
+	public TqsStack(int limit) {
+		ll = new LinkedList<>();
+		this.limit=limit;
 	}
 
 	public boolean isEmpty() {
@@ -27,16 +24,25 @@ public class TqsStack {
 		return ll.size();
 	}
 
-	public Integer pop(){
-		return ll.pop();
+	public T pop(){
+		if (this.isEmpty()) {
+			throw new NoSuchElementException("Stack is empty"); 
+		}else
+			return ll.pop();
 	}
 
-	public Integer peek(){
-		return ll.peek();
+	public T peek(){
+		if (this.isEmpty()) {
+			throw new NoSuchElementException("Stack is empty"); 
+		}else
+			return ll.peek();
 	}
 
-	public void push(Integer t){
-		ll.push(t);
+	public void push(T t){
+		if (limit!=0 && this.size() == this.limit ) {
+			throw new IllegalStateException("stack full");
+		}else
+			ll.push(t);
 	}
 
 }
