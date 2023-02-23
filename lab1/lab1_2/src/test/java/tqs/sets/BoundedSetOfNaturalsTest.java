@@ -53,5 +53,32 @@ class BoundedSetOfNaturalsTest {
         assertThrows(IllegalArgumentException.class, () -> setA.add(elems));
     }
 
+    @Test
+    public void testSize() {
+        assertEquals(0,setA.size());   
+        assertEquals(2,setC.size());   
+
+    }
+
+    @Test
+    public void testIntersects() {
+        assertTrue(setB.intersects(setC));   
+        assertFalse(setC.intersects(setB));  
+        assertTrue(setC.intersects(setA));  
+    }
+
+    @Test
+    public void testContains() {
+        assertFalse(setA.contains(1));  
+        setA.add(1);
+        assertTrue(setA.contains(1)); 
+    }
+
+    @Test
+    public void testNegativeNumber() {
+        assertThrows(IllegalArgumentException.class, () -> setA.add(-1));
+
+    }
+
 
 }
