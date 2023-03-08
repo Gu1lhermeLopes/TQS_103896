@@ -39,8 +39,9 @@
 - and is just used in test files with @TestPropertySource annotation. In this case will run the test with the file's proprieties.
 
 ### e) Differences between C,D and E strategy
--The unique change from D to E ,is the E make REST requests using TestRestTemplate class while D use MockMvc, which dont allow this requests.
--The strategy C do a test exclusively focus in controller.
+
+- The unique change from D to E ,is the E make REST requests using TestRestTemplate class while D use MockMvc, which dont allow this requests.
+- The strategy C do a test exclusively focus in controller.
 
 
 
