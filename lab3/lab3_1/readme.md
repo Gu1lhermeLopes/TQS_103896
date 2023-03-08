@@ -1,3 +1,0 @@
-### LAB1
-
-- assertThat
