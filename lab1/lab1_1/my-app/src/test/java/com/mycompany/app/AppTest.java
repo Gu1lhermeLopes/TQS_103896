@@ -1,5 +1,8 @@
 package com.mycompany.app;
 
+
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +66,33 @@ public class AppTest
 
     @Test
     public void popException(){
-        
+        Exception exception = Assertions.assertThrows(NoSuchElementException.class, () -> {
+            myStack.pop();
+        });
+        Assertions.assertEquals(exception.getMessage(), "Stack is empty" );
     }
+
+    @Test
+    public void peekException(){
+        Exception exception = Assertions.assertThrows(NoSuchElementException.class, () -> {
+            myStack.peek();
+        });
+        Assertions.assertEquals(exception.getMessage(), "Stack is empty" );
+    }
+
+    @Test
+    public void pushException(){
+        myStack = new TqsStack<Integer>(2);
+        myStack.push(1);
+        myStack.push(2);
+        Exception exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+            myStack.push(3);
+        });
+        Assertions.assertEquals(exception.getMessage(), "Stack is full" );
+    }
+
+
+
+
 
 }
