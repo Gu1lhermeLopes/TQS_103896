@@ -16,6 +16,7 @@ class BoundedSetOfNaturalsTest {
     private BoundedSetOfNaturals setA;
     private BoundedSetOfNaturals setB;
     private BoundedSetOfNaturals setC;
+    private BoundedSetOfNaturals setD;
 
 
     @BeforeEach
@@ -23,6 +24,7 @@ class BoundedSetOfNaturalsTest {
         setA = new BoundedSetOfNaturals(1);
         setB = BoundedSetOfNaturals.fromArray(new int[]{10, 20, 30, 40, 50, 60});
         setC = BoundedSetOfNaturals.fromArray(new int[]{50, 60});
+        setD = new BoundedSetOfNaturals(2);
     }
 
     @AfterEach
@@ -38,10 +40,25 @@ class BoundedSetOfNaturalsTest {
         assertEquals(1, setA.size());
 
         // exception expected
-        
-        setB.add(11);
-        assertTrue(setB.contains(11), "add: added element not found in set.");
-        assertEquals(7, setB.size(), "add: elements count not as expected.");
+        //setB.add(11);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> setB.add(11));
+        assertEquals("bounded set is full. no more elements allowed.", exception.getMessage());
+        //
+        assertFalse(setB.contains(11), "add: added element not found in set.");
+        assertEquals(6, setB.size(), "add: elements count not as expected.");
+    }
+
+    @Test
+    public void addNonNatural() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> setA.add(-1));
+        assertEquals("Illegal argument: not a natural number", exception.getMessage());
+    }
+
+    @Test
+    public void addDuplicate() {
+        setD.add(1);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> setD.add(1));
+        assertEquals("duplicate value: 1", exception.getMessage());
     }
 
     @Test
