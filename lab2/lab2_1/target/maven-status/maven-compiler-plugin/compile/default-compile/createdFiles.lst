@@ -1,1 +1,3 @@
-com/tqs/Main.class
+com/tqs/Stock.class
+com/tqs/IStockmarketService.class
+com/tqs/StocksPortfolio.class

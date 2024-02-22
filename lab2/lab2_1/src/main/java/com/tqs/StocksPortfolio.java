@@ -1,13 +1,14 @@
 package com.tqs;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class StocksPortfolio {
     private IStockmarketService stockmarket;
-    private List<Stock> stocks;
+    private ArrayList<Stock> stocks;
 
     public StocksPortfolio(IStockmarketService stockmarket) {
         this.stockmarket = stockmarket;
+        stocks = new ArrayList<Stock>();
     }
 
     public void addStock(Stock stock) {
