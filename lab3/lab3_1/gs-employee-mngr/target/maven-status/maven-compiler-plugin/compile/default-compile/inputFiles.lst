@@ -1,0 +1,7 @@
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/data/EmployeeDTO.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/data/Employee.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/service/EmployeeService.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/EmployeeMngrApplication.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/boundary/EmployeeRestController.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/service/EmployeeServiceImpl.java
+/home/gui/ua/tqs/TQS_103896/lab3/lab3_1/gs-employee-mngr/src/main/java/tqsdemo/employeemngr/data/EmployeeRepository.java
