@@ -3,14 +3,15 @@ package tqs.cars.lab3_2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment; // Import the missing class
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 
@@ -20,17 +21,22 @@ import java.util.List; // Add the missing import
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase
+
+
+@TestPropertySource(locations = "application-integrationtest.properties")
 public class E_CarRestControllerTemplateIT {
     
-    @LocalServerPort
-    int randomServerPort;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Autowired
     private CarRepository carRepository;
+
+    @AfterEach
+    public void resetDb() {
+        carRepository.deleteAll();
+    }
 
 
     @Test
