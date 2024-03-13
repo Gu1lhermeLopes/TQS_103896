@@ -1,0 +1,178 @@
+{
+  "id": "c264c025-4bf3-4e88-bb88-86fc6adf91cc",
+  "version": "2.0",
+  "name": "Lab4_2",
+  "url": "https://blazedemo.com",
+  "tests": [{
+    "id": "189e83f7-5813-4311-a5bd-01ffb55b0e4d",
+    "name": "blazedemo",
+    "commands": [{
+      "id": "50867886-57ff-4474-a757-12f099c53fbd",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "13de4c38-c5d1-41e7-8c16-cb83e356f67d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x817",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fbaa6418-284f-41fc-b3b0-80bf9953f03e",
+      "comment": "",
+      "command": "click",
+      "target": "name=fromPort",
+      "targets": [
+        ["name=fromPort", "name"],
+        ["css=.form-inline:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='fromPort']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "af460e78-362d-4f60-8066-dc5b8fb96dfa",
+      "comment": "",
+      "command": "select",
+      "target": "name=fromPort",
+      "targets": [],
+      "value": "label=San Diego"
+    }, {
+      "id": "aa3f3d16-790b-4973-b9e0-ee54a7dc6c2e",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "name=fromPort",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "891d2ec9-8f6c-4b3a-a5cc-7028b02595d1",
+      "comment": "",
+      "command": "click",
+      "target": "name=toPort",
+      "targets": [
+        ["name=toPort", "name"],
+        ["css=.form-inline:nth-child(4)", "css:finder"],
+        ["xpath=//select[@name='toPort']", "xpath:attributes"],
+        ["xpath=//select[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0ba1a967-58e8-453b-ab5c-de5038004c73",
+      "comment": "",
+      "command": "select",
+      "target": "name=toPort",
+      "targets": [],
+      "value": "label=Cairo"
+    }, {
+      "id": "c22bb386-1357-45a6-ba0d-24e36bd9bbaa",
+      "comment": "",
+      "command": "click",
+      "target": "name=fromPort",
+      "targets": [
+        ["name=fromPort", "name"],
+        ["css=.form-inline:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='fromPort']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "64437a8f-5438-4fe4-9466-3e09dd5e2c74",
+      "comment": "",
+      "command": "click",
+      "target": "name=fromPort",
+      "targets": [
+        ["name=fromPort", "name"],
+        ["css=.form-inline:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='fromPort']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "799c30cc-0c42-4852-ab39-cdfe982b1623",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//input[@value='Find Flights']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "76bba8c1-fc52-4856-b330-5efef9d12218",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(4) .btn",
+      "targets": [
+        ["css=tr:nth-child(4) .btn", "css:finder"],
+        ["xpath=(//input[@value='Choose This Flight'])[4]", "xpath:attributes"],
+        ["xpath=//tr[4]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0404efff-8f60-4f6c-a0ab-559c30ee1261",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//input[@value='Purchase Flight']", "xpath:attributes"],
+        ["xpath=//div[11]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f39027a-9792-4b66-8b17-c2a7c87412a2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.icon-bar:nth-child(1)",
+      "targets": [
+        ["css=.icon-bar:nth-child(1)", "css:finder"],
+        ["xpath=//span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d59ca73-d29d-4872-9f77-a933a51bfcc3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "60917d48-76ea-4809-92a2-9523bdfc6091",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "BlazeDemo Confirmation",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d86e681-2a30-4303-a51d-bd5e933b8097",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=home",
+      "targets": [
+        ["linkText=home", "linkText"],
+        ["css=.brand:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'home')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'home')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'home')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "47206cd8-361e-4ac9-a066-a3a83c0a3a7f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["189e83f7-5813-4311-a5bd-01ffb55b0e4d"]
+  }],
+  "urls": ["https://blazedemo.com/"],
+  "plugins": []
+}
