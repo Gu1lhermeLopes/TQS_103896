@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Ticket</title>
+    <!-- Add any necessary CSS or JavaScript imports here -->
+</head>
+<body>
+    <h2>Confirm Ticket</h2>
+    <p>Trip Details:</p>
+    <p th:text="'Company: ' + ${trip.company}"></p>
+    <p th:text="'Departure: ' + ${trip.depart}"></p>
+    <p th:text="'Arrival: ' + ${trip.arrive}"></p>
+    <p th:text="'Departure Time: ' + ${trip.departTime}"></p>
+    <p th:text="'Arrival Time: ' + ${trip.arriveTime}"></p>
+    <p th:text="'Price: ' + ${trip.price}"></p>
+    
+    <hr>
+    
+    <!-- Form to complete ticket data -->
+    <form action="/confirm" method="post">
+        <!-- <input type="hidden" name="tripId" th:value="${trip.id}" />
+        <input type="hidden" name="price" th:value="${trip.price}" />
+        Add additional fields for ticket details -->
+
+        <input type="hidden" name="tripId" th:value="${trip.id}" />
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="nif">nif:</label>
+        <input type="text" id="nif" name="nif" required>
+        <br>
+        <label for="address">address:</label>
+        <input type="text" id="address" name="address" required>
+        <br>
+        <label for="creditCardId">creditCardId:</label>
+        <input type="text" id="creditCardId" name="creditCardId" required>
+        <br>
+        <label for="creditCardName">creditCardName:</label>
+        <input type="text" id="creditCardName" name="creditCardName" required>
+        <br>
+        <label for="creditCardMonth">creditCardMonth:</label>
+        <input type="number" id="creditCardMonth" name="creditCardMonth" required>
+        <br>
+        <label for="creditCardYear">creditCardYear:</label>
+        <input type="number" id="creditCardYear" name="creditCardYear" required>
+        <br>
+        <label for="creditCardCvv">creditCardCvv:</label>
+        <input type="number" id="creditCardCvv" name="creditCardCvv" required>
+        <br>
+        
+        <!-- Add more fields as needed -->
+        <button type="submit">Confirm Ticket</button>
+    </form>
+</body>
+</html>

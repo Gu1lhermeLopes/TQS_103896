@@ -1,0 +1,31 @@
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Departure and Arrival Cities</title>
+</head>
+<body>
+    <h2>Select Departure and Arrival Cities</h2>
+    <form action="/result" method="post">
+        <label for="depart">Departure City:</label>
+        <select id="depart" name="depart">
+            <option th:each="city : ${depart}" th:value="${city}" th:text="${city}">City Name</option>
+        </select>
+        <br>
+        <label for="arrive">Arrival City:</label>
+        <select id="arrive" name="arrive">
+            <option th:each="city : ${arrive}" th:value="${city}" th:text="${city}">City Name</option>
+        </select>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+
+https://api.currencyapi.com/v3/latest?apikey=cur_live_21peSueitMHKnPVAsyLtWiVd9Wkk1Wd7OLAizxGo&currencies=&base_currency=EUR
