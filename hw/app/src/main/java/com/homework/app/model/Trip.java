@@ -24,6 +24,29 @@ public class Trip {
 
     private double price;
 
+    private int totalSeats;
+
+    private int avaibleSeats;
+
+    private boolean isAvailable;
+
+    public Trip() {
+        isAvailable = false;
+    }
+
+
+    public boolean bookSeat() {
+        if (isAvailable()){
+            setAvaibleSeats(getAvaibleSeats() - 1);
+            setAvailable();
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -80,13 +103,39 @@ public class Trip {
         this.price = price;
     }
 
+    public int getTotalSeats() {
+        return totalSeats;
+    }
 
-    
-    
+    public boolean setTotalSeats(int totalSeats) {
+        if (totalSeats > 0) {
+            this.totalSeats = totalSeats;
+            setAvaibleSeats(totalSeats);
+            setAvailable();
+            return true;
+        }
+        return false;
 
+    }
 
-    
+    public int getAvaibleSeats() {
+        return avaibleSeats;
+    }
 
+    public void setAvaibleSeats(int avaibleSeats) {
+        this.avaibleSeats = avaibleSeats;
+    }
 
-    
+    private void setAvailable() {
+        if (getAvaibleSeats() > 0) {
+            isAvailable = true;
+        } else {
+            isAvailable = false;
+        }
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
 }

@@ -26,9 +26,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="ticket : ${tickets}">
-                    <td th:text="${ticket.name}"></td>
-                    <td th:text="${ticket.nif}"></td>
-                    <td th:text="${ticket.trip.id}"></td>
+                    <td th:text="${ticket.creditCardId}"></td>
+                    <td th:text="${ticket.trip.depart}"></td>
+                    <td th:text="${ticket.trip.arrive}"></td>
                     <td th:text="${ticket.trip.price}"></td>
 
                 </tr>

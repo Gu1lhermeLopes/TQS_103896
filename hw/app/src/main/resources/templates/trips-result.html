@@ -26,6 +26,7 @@
                     <th>Departure Time</th>
                     <th>Arrival Time</th>
                     <th>Price</th>
+                    <th>Avaible</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                     <td th:text="${trip.departTime}"></td>
                     <td th:text="${trip.arriveTime}"></td>
                     <td th:text="${trip.price}"></td>
+                    <td th:text="${trip.avaibleSeats}"></td>
                     <td>
                         <form action="/buyticket" method="post">
                             <input type="hidden" name="tripId" th:value="${trip.id}" />

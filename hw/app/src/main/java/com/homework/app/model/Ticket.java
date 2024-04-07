@@ -1,5 +1,8 @@
 package com.homework.app.model;
 
+import java.time.Year;
+import java.time.YearMonth;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,37 +19,31 @@ public class Ticket {
 
     private String name;
     private String nif;
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
 
-    private Double price;
-
-    private String address;
-
-    private String creditCardId;
     private String creditCardName;
-    private int creditCardMonth;
-    private int creditCardYear;
+    private String creditCardId;
+    private YearMonth creditCardDate;
     private int creditCardCvv;
 
     public Ticket() {
     }
 
-    public Ticket(String name, String nif, Trip trip, Double price, String address, String creditCardId, String creditCardName, int creditCardMonth, int creditCardYear, int creditCardCvv) {
-        this.name = name;//
-        this.nif = nif;//
-        this.trip = trip;
-        this.price = price;
-        this.address = address;
-        this.creditCardId = creditCardId;
-        this.creditCardName = creditCardName;
-        this.creditCardMonth = creditCardMonth;
-        this.creditCardYear = creditCardYear;
-        this.creditCardCvv = creditCardCvv;
-    }
+    // public Ticket(String name, String nif, Trip trip, String address, String creditCardId, String creditCardName, int creditCardMonth, int creditCardYear, int creditCardCvv) {
+    //     this.name = name;//
+    //     this.nif = nif;//
+    //     this.trip = trip;
+    //     this.address = address;
+    //     this.creditCardId = creditCardId;
+    //     this.creditCardName = creditCardName;
+    //     this.creditCardDate = YearMonth.of(creditCardYear, creditCardMonth);
+    //     this.creditCardCvv = creditCardCvv;
+    // }
 
     public Long getId() {
         return id;
@@ -68,8 +65,13 @@ public class Ticket {
         return nif;
     }
 
-    public void setNif(String nif) {
+    public boolean setNif(String nif) {
+
+        if (!nif.matches("\\d{9}")) {
+            throw new IllegalArgumentException("O NIF deve ser composto por 9 dígitos.");
+        }
         this.nif = nif;
+        return true;
     }
 
     public Trip getTrip() {
@@ -78,14 +80,6 @@ public class Ticket {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public String getAddress() {
@@ -100,8 +94,13 @@ public class Ticket {
         return creditCardId;
     }
 
-    public void setCreditCardId(String creditCardId) {
+    public boolean setCreditCardId(String creditCardId) {
+
+        if (!creditCardId.matches("\\d{4} \\d{4} \\d{4} \\d{4}")) {
+            throw new IllegalArgumentException("O número do cartão de crédito deve ter o formato 0000 0000 0000 0000.");
+        }
         this.creditCardId = creditCardId;
+        return true;
     }
 
     public String getCreditCardName() {
@@ -112,28 +111,40 @@ public class Ticket {
         this.creditCardName = creditCardName;
     }
 
-    public int getCreditCardMonth() {
-        return creditCardMonth;
+    //CreditCardDate
+    public YearMonth getCreditCardDate() {
+        return creditCardDate;
+    }
+    public boolean setCreditCardDate(int creditCardYear, int creditCardMonth) {
+        if (creditCardYear < Year.now().getValue()) {
+            throw new IllegalArgumentException("O ano do cartão de crédito não pode ser menor que o ano atual.");
+        }
+        if (creditCardMonth < 1 || creditCardMonth > 12) {
+            throw new IllegalArgumentException("O mês do cartão de crédito deve ser um número entre 1 e 12.");
+        }
+        if (YearMonth.of(creditCardYear, creditCardMonth).isBefore(YearMonth.now())) {
+            throw new IllegalArgumentException("A data do cartão de crédito não pode ser anterior à data atual.");
+        }
+        this.creditCardDate = YearMonth.of(creditCardYear, creditCardMonth);
+        return true;
     }
 
-    public void setCreditCardMonth(int creditCardMonth) {
-        this.creditCardMonth = creditCardMonth;
-    }
 
-    public int getCreditCardYear() {
-        return creditCardYear;
-    }
 
-    public void setCreditCardYear(int creditCardYear) {
-        this.creditCardYear = creditCardYear;
-    }
-
+    //CVV
     public int getCreditCardCvv() {
         return creditCardCvv;
     }
 
-    public void setCreditCardCvv(int creditCardCvv) {
+    public boolean setCreditCardCvv(int creditCardCvv) {
+        if (creditCardCvv < 0) {
+            throw new IllegalArgumentException("O CVV do cartão de crédito não pode ser negativo.");
+        }
+        if (String.valueOf(creditCardCvv).length() != 3) {
+            throw new IllegalArgumentException("O CVV do cartão de crédito deve ter exatamente três números.");
+        }
         this.creditCardCvv = creditCardCvv;
+        return true;
     }
 
 

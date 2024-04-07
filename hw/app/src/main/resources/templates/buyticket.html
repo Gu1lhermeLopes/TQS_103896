@@ -29,13 +29,13 @@
         <input type="text" id="name" name="name" required>
         <br>
         <label for="nif">nif:</label>
-        <input type="text" id="nif" name="nif" required>
+        <input type="text" id="nif" name="nif" pattern="[0-9]{9}" maxlength="9" required>
         <br>
         <label for="address">address:</label>
         <input type="text" id="address" name="address" required>
         <br>
         <label for="creditCardId">creditCardId:</label>
-        <input type="text" id="creditCardId" name="creditCardId" required>
+        <input type="text" id="creditCardId" name="creditCardId" pattern="\d{4} \d{4} \d{4} \d{4}" oninput="formatCreditCardId()" maxlength="19" required onkeypress="return onlyDigits(event)">
         <br>
         <label for="creditCardName">creditCardName:</label>
         <input type="text" id="creditCardName" name="creditCardName" required>
@@ -53,5 +53,20 @@
         <!-- Add more fields as needed -->
         <button type="submit">Confirm Ticket</button>
     </form>
+
+
+    <script>
+        function formatCreditCardId() {
+            let creditCardInput = document.getElementById("creditCardId");
+            let value = creditCardInput.value.replace(/\s/g, '');
+            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+            creditCardInput.value = formattedValue;
+        }
+
+        function onlyDigits(event) {
+            const key = event.key;
+            return /^\d$/.test(key);
+        }
+    </script>
 </body>
 </html>

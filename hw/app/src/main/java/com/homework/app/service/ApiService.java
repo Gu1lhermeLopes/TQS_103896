@@ -32,7 +32,12 @@ public class ApiService {
     }
 
     public void saveTicket(Ticket ticket) {
-        ticketRepo.save(ticket);
+        
+        if (ticket.getTrip().isAvailable()) {
+            ticket.getTrip().bookSeat();
+            ticketRepo.save(ticket);
+            tripRepo.save(ticket.getTrip());
+        }
     }
 
     public List<String> getDepartures() {
@@ -58,8 +63,4 @@ public class ApiService {
         }
         return null;
     }
-
-
-
-    
 }
