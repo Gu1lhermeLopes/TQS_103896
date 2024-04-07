@@ -3,6 +3,7 @@ package com.homework.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,19 +11,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.homework.app.model.*;
 import com.homework.app.service.ApiService;
+import com.homework.app.service.CurrencyService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class ExpressController {
 
     @Autowired
     private ApiService service;
+    
+    @Autowired
+    private CurrencyService currencyService;
 
-    @GetMapping({ "/", "/index" })
-    public String index(Model model) {
+    @GetMapping({ "/", "/index"})
+    public String index(Model model, @CookieValue(value = "preferredCurrency", defaultValue = "EUR") String preferredCurrency){
+
+
         model.addAttribute("depart", service.getDepartures());
         model.addAttribute("arrive", service.getArrivals());
-
+        model.addAttribute("preferredCurrency", preferredCurrency);
+        model.addAttribute("currency", currencyService.getSupportedCurrencies());
         return "index";
+    }
+    //muda coeda
+    @PostMapping("/currency")
+    public String chooseCurrency(@RequestParam("currency") String currency, HttpServletResponse response) {
+        // Armazenar a moeda preferida do usuário
+        Cookie cookie = new Cookie("preferredCurrency", currency);
+        cookie.setMaxAge(365 * 24 * 60 * 60);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return "redirect:/index";
+    }
+    
+
+    //pesquisa de viagens
+    @PostMapping("/result")
+    public String processForm(@RequestParam("depart") String departureCity,
+            @RequestParam("arrive") String arrivalCity,
+            Model model) {
+        model.addAttribute("trips", service.getTripsByDepartAndArrive(departureCity, arrivalCity));
+        return "trips-result";
     }
 
     // chamado no newticket.html
@@ -45,15 +76,7 @@ public class ExpressController {
         return "tickets";
     }
 
-    @PostMapping("/result")
-    public String processForm(@RequestParam("depart") String departureCity,
-            @RequestParam("arrive") String arrivalCity,
-            Model model) {
 
-        model.addAttribute("trips", service.getTripsByDepartAndArrive(departureCity, arrivalCity));
-
-        return "trips-result";
-    }
 
     @PostMapping("/buyticket")
     public String confirmTicket(@RequestParam("tripId") String tripId, Model model) {

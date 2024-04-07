@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exchange Rates</title>
+</head>
+<body>
+    <h1>Exchange Rates</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Itera sobre o mapa de taxas de câmbio e exibe cada par chave-valor -->
+            <tr th:each="entry : ${exchangeRates}">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

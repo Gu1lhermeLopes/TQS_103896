@@ -1,7 +1,7 @@
 package com.homework.app.component;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -49,7 +49,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private int randomNumber(int min, int max) {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         return random.nextInt(max - min + 1) + min;
     }
 
