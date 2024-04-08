@@ -5,19 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.homework.app.model.Trip;
 
-public class TripUnitTests {
-
+class TripUnitTests {
 
     // Tests Trip
     @Test
-    public void set_negative_seats_Test(){
+    void set_negative_seats_Test() {
         Trip trip = new Trip();
         assertFalse(trip.setTotalSeats(-1));
         assertFalse(trip.bookSeat());
     }
 
     @Test
-    public void unavailable_when_full_Test(){
+    void unavailable_when_full_Test() {
         Trip trip = new Trip();
         trip.setTotalSeats(1);
         trip.bookSeat();
@@ -25,7 +24,7 @@ public class TripUnitTests {
     }
 
     @Test
-    public void avaible_seats_logic_Test(){
+    void avaible_seats_logic_Test() {
         Trip trip = new Trip();
         trip.setTotalSeats(1);
         assertEquals(trip.getTotalSeats(), trip.getAvaibleSeats());
@@ -34,11 +33,11 @@ public class TripUnitTests {
     }
 
     @Test
-    public void book_full_Test(){
+    void book_full_Test() {
         Trip trip = new Trip();
         trip.setTotalSeats(1);
         assertTrue(trip.bookSeat());
         assertFalse(trip.bookSeat());
     }
-    
+
 }

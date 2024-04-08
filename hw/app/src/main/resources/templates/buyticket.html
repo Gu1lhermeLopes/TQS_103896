@@ -13,17 +13,18 @@
     <p th:text="'Arrival: ' + ${trip.arrive}"></p>
     <p th:text="'Departure Time: ' + ${trip.departTime}"></p>
     <p th:text="'Arrival Time: ' + ${trip.arriveTime}"></p>
-    <p th:text="'Price: ' + ${trip.price}"></p>
+    <p th:text="'Price: ' + ${trip.price} +' '+ ${preferredCurrency}"></p>
     
     <hr>
     
-    <!-- Form to complete ticket data -->
     <form action="/confirm" method="post">
         <!-- <input type="hidden" name="tripId" th:value="${trip.id}" />
         <input type="hidden" name="price" th:value="${trip.price}" />
         Add additional fields for ticket details -->
 
         <input type="hidden" name="tripId" th:value="${trip.id}" />
+        <input type="hidden" name="Userprice" th:value="${trip.price}" />
+        <input type="hidden" name="currency"  th:value="${preferredCurrency}" />
 
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>

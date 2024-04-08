@@ -1,12 +1,12 @@
 package com.homework.app.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.homework.app.model.Trip;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +34,38 @@ public class CurrencyService {
         this.cacheManager = cacheManager;
 
         refreshExchangeRatesCache();
+    }
+
+
+
+    public List<Trip> convertTripsPrice(List<Trip> trips, String currency){
+        Double exchangeRate = getValueByCurrency(currency);
+        if (exchangeRate != null) {
+            for (Trip trip : trips) {
+                trip.setPrice(trip.getPrice() * exchangeRate);
+            }
+        }
+        return trips; 
+    }
+
+    public Trip convertTripPrice(Trip trip, String currency){
+        Double exchangeRate = getValueByCurrency(currency);
+        if (exchangeRate != null) {
+            trip.setPrice(trip.getPrice() * exchangeRate);
+        }
+        return trip; 
+    }
+
+
+    public Double getValueByCurrency(String currency){
+        if (currency.equals("EUR")) {
+            return 1.0;
+        }
+        Map<String, Double> exchangeRates = getExchangeRates();
+        if (exchangeRates != null) {
+            return exchangeRates.get(currency);
+        }
+        return null;
     }
 
     public Map<String, Double> getExchangeRates() {

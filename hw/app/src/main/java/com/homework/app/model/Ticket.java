@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.Random;
 
 @Entity
 public class Ticket {
@@ -31,19 +32,42 @@ public class Ticket {
     private YearMonth creditCardDate;
     private int creditCardCvv;
 
+    private String currency;
+    private double userprice;
+
+    private boolean payment;
+    private String acessToken;
+
     public Ticket() {
+        //this.currency = "EUR";
+        this.payment = false;
     }
 
-    // public Ticket(String name, String nif, Trip trip, String address, String creditCardId, String creditCardName, int creditCardMonth, int creditCardYear, int creditCardCvv) {
-    //     this.name = name;//
-    //     this.nif = nif;//
-    //     this.trip = trip;
-    //     this.address = address;
-    //     this.creditCardId = creditCardId;
-    //     this.creditCardName = creditCardName;
-    //     this.creditCardDate = YearMonth.of(creditCardYear, creditCardMonth);
-    //     this.creditCardCvv = creditCardCvv;
-    // }
+    public String getAcessToken() {
+        return acessToken;
+    }
+
+    public void generateToken() {
+        Random random = new Random();
+        StringBuilder token = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            int randomNum = random.nextInt(26);
+            char randomChar = (char) ('A' + randomNum);
+            token.append(randomChar);
+        }
+        this.acessToken = token.toString();
+    }
+
+
+    public boolean getPayment() {
+        return payment;
+    }
+
+    public void isPaid() {
+        this.payment = true;
+        this.generateToken();
+    }
 
     public Long getId() {
         return id;
@@ -145,6 +169,22 @@ public class Ticket {
         }
         this.creditCardCvv = creditCardCvv;
         return true;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public double getUserprice() {
+        return userprice;
+    }
+
+    public void setUserprice(double userprice) {
+        this.userprice = userprice;
     }
 
 

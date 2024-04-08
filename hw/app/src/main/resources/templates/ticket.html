@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Information</title>
+</head>
+<body>
+    <h2>Ticket Information</h2>
+    <p>Ticket ID: <span th:text="${ticket.id}"></span></p>
+    <p>Token: <span th:text="${ticket.acessToken}"></span></p>
+    <p>Price: <span th:text="${ticket.userprice}"></span></p>
+    <p>Currency: <span th:text="${ticket.trip.price}"></span></p>
+
+</body>
+</html>

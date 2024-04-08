@@ -39,7 +39,6 @@ public class DataLoader implements CommandLineRunner {
                         trip.setPrice(randomNumber(10, 100));
 
                         trip.setTotalSeats(randomNumber(40, 60));
-                        //trip.setAvaibleSeats(trip.getTotalSeats());
 
                         repo.save(trip);
                     }

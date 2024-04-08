@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Ticket</title>
+</head>
+<body>
+    <h2>Access Ticket</h2>
+    <form action="/ticket" method="post">
+        <label for="ticketId">Ticket ID:</label>
+        <input type="text" id="ticketId" name="ticketId">
+        <label for="token">Token:</label>
+        <input type="text" id="token" name="token">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

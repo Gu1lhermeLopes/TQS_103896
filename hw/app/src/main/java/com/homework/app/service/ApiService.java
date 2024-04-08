@@ -17,11 +17,33 @@ import java.util.Optional;
 @Service
 public class ApiService {
 
-    @Autowired
-    private TicketRepo ticketRepo;
+    private final TicketRepo ticketRepo;
+
+    private final TripRepo tripRepo;
 
     @Autowired
-    private TripRepo tripRepo;
+    public ApiService(TicketRepo ticketRepo, TripRepo tripRepo) {
+        this.ticketRepo = ticketRepo;
+        this.tripRepo = tripRepo;
+    }
+
+
+    private Ticket getTicketById(Long id) {
+        Optional<Ticket> ticketOptional = ticketRepo.findById(id);
+        if (ticketOptional.isPresent()) {
+            return ticketOptional.get();
+        }
+        return null;
+    }
+
+
+    public Ticket accessTicket(Long id, String token) {
+        Ticket ticket = getTicketById(id);
+        if (ticket != null && ticket.getAcessToken().equals(token)) {
+            return ticket;
+        }
+        return null;
+    }
 
     public List<Ticket> getAllTickets() {
         return ticketRepo.findAll();
@@ -34,6 +56,7 @@ public class ApiService {
     public void saveTicket(Ticket ticket) {
         
         if (ticket.getTrip().isAvailable()) {
+            ticket.isPaid();
             ticket.getTrip().bookSeat();
             ticketRepo.save(ticket);
             tripRepo.save(ticket.getTrip());

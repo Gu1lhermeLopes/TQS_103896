@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
+    <!-- navbar.html -->
+    <div th:replace="navbar"></div>
+
     <div class="container mt-5">
         <h2 class="text-center mb-4">Select Departure and Arrival Cities</h2>
         <form action="/result" method="post" class="row">
@@ -23,11 +26,11 @@
                 </select>
             </div>
             <div class="form-group col-md-2 align-self-end">
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                <button type="submit" class="btn btn-outline btn-block btn text-white" style="background: linear-gradient(to left, #ee0979, #ff6a00);">Submit</button>
             </div>
         </form>
 
-        <form action="/currency" method="post" class="row">
+        <!-- <form action="/currency" method="post" class="row">
             <div class="form-group col-md-2">
                 <label for="currency">Currency:</label>
                 <select id="currency" name="currency" class="form-control">
@@ -38,7 +41,7 @@
             <div class="form-group col-md-2 align-self-end">
                 <button type="submit" class="btn btn-primary btn-block">Change</button>
             </div>
-        </form>
+        </form> -->
     </div>
     <!-- Adicionando Bootstrap JS (opcional, dependendo de suas necessidades) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

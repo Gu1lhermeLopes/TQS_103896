@@ -26,11 +26,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="ticket : ${tickets}">
-                    <td th:text="${ticket.creditCardId}"></td>
-                    <td th:text="${ticket.trip.depart}"></td>
-                    <td th:text="${ticket.trip.arrive}"></td>
-                    <td th:text="${ticket.trip.price}"></td>
-
+                    <td th:text="${ticket.acessToken}"></td>
+                    <td th:text="${ticket.id}"></td>
+                    <td th:text="${ticket.currency}"></td>
+                    <td th:text="${ticket.trip.price}"></td> 
                 </tr>
                 </tbody>
             </table>
