@@ -33,21 +33,6 @@ class ApiServiceTests {
     private ApiService apiService;
 
     @Test
-    void testGetTicketById() {
-        Trip trip = new Trip();
-        trip.setTotalSeats(2);
-        Ticket ticket = new Ticket();
-        ticket.setTrip(trip);
-        apiService.saveTicket(ticket);
-
-        when(ticketRepo.findById(ticket.getId())).thenReturn(Optional.of(ticket));
-
-        Ticket retrievedTicket = apiService.getTicketById(ticket.getId());
-
-        assertEquals(ticket.getId(), retrievedTicket.getId());
-    }
-
-    @Test
     void testAccessTicket() {
         Trip trip = new Trip();
         trip.setTotalSeats(2);
@@ -59,6 +44,21 @@ class ApiServiceTests {
         when(ticketRepo.findById(ticket.getId())).thenReturn(Optional.of(ticket));
 
         Ticket retrievedTicket = apiService.accessTicket(ticket.getId(), ticket.getAcessToken());
+
+        assertEquals(ticket.getId(), retrievedTicket.getId());
+    }
+
+    @Test
+    void testGetTicketById() {
+        Trip trip = new Trip();
+        trip.setTotalSeats(2);
+        Ticket ticket = new Ticket();
+        ticket.setTrip(trip);
+        apiService.saveTicket(ticket);
+
+        when(ticketRepo.findById(ticket.getId())).thenReturn(Optional.of(ticket));
+
+        Ticket retrievedTicket = apiService.getTicketById(ticket.getId());
 
         assertEquals(ticket.getId(), retrievedTicket.getId());
     }

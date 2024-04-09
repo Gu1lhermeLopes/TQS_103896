@@ -7,7 +7,6 @@ import com.homework.app.model.Trip;
 
 class TripUnitTests {
 
-    // Tests Trip
     @Test
     void set_negative_seats_Test() {
         Trip trip = new Trip();
