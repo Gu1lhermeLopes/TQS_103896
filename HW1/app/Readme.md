@@ -1,3 +1,8 @@
+
+
+
+
+
 mvn clean verify sonar:sonar \
   -Dsonar.projectKey=HomeWork \
   -Dsonar.projectName='HomeWork' \
