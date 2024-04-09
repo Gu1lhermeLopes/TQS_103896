@@ -25,6 +25,10 @@ public class ExpressController {
 
     private final CurrencyService currencyService;
 
+    private static final String TICKET_STRING = "ticket";
+
+    private static final String PREFERRED_CURRENCY = "preferredCurrency";
+
     @Autowired
     public ExpressController(ApiService service, CurrencyService currencyService) {
         this.service = service;
@@ -40,11 +44,11 @@ public class ExpressController {
 
     @GetMapping({ "/", "/index" })
     public String index(Model model,
-            @CookieValue(value = "preferredCurrency", defaultValue = "EUR") String preferredCurrency) {
+            @CookieValue(value = PREFERRED_CURRENCY, defaultValue = "EUR") String preferredCurrency) {
 
         model.addAttribute("depart", service.getDepartures());
         model.addAttribute("arrive", service.getArrivals());
-        model.addAttribute("preferredCurrency", preferredCurrency);
+        model.addAttribute(PREFERRED_CURRENCY, preferredCurrency);
         model.addAttribute("currency", currencyService.getSupportedCurrencies());
         return "index";
     }
@@ -52,7 +56,7 @@ public class ExpressController {
     // muda moeda
     @PostMapping("/currency")
     public String chooseCurrency(@RequestParam("currency") String currency, HttpServletResponse response) {
-        Cookie cookie = new Cookie("preferredCurrency", currency);
+        Cookie cookie = new Cookie(PREFERRED_CURRENCY, currency);
         cookie.setMaxAge(365 * 24 * 60 * 60);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
@@ -63,21 +67,22 @@ public class ExpressController {
     @PostMapping("/result")
     public String processForm(@RequestParam("depart") String departureCity,
             @RequestParam("arrive") String arrivalCity,
-            Model model, @CookieValue(value = "preferredCurrency", defaultValue = "EUR") String preferredCurrency) {
+            Model model, @CookieValue(value = PREFERRED_CURRENCY, defaultValue = "EUR") String preferredCurrency) {
         List<Trip> trips = service.getTripsByDepartAndArrive(departureCity, arrivalCity);
         model.addAttribute("trips", currencyService.convertTripsPrice(trips, preferredCurrency));
-        model.addAttribute("preferredCurrency", preferredCurrency);
-        model.addAttribute("currency", currencyService.getSupportedCurrencies());
+        model.addAttribute(PREFERRED_CURRENCY, preferredCurrency);
+        model.addAttribute("city1", departureCity);
+        model.addAttribute("city2", arrivalCity);
         return "trips-result";
     }
 
     // comprar de bilhete
     @PostMapping("/buyticket")
-    public String confirmTicket(@RequestParam("tripId") String tripId, Model model, @CookieValue(value = "preferredCurrency", defaultValue = "EUR") String preferredCurrency){
+    public String confirmTicket(@RequestParam("tripId") String tripId, Model model, @CookieValue(value = PREFERRED_CURRENCY, defaultValue = "EUR") String preferredCurrency){
         Trip trip = service.getTripById(Long.parseLong(tripId));
         model.addAttribute("trip", currencyService.convertTripPrice(trip, preferredCurrency));
-        model.addAttribute("ticket", new Ticket());
-        model.addAttribute("preferredCurrency", preferredCurrency);
+        model.addAttribute(TICKET_STRING, new Ticket());
+        model.addAttribute(PREFERRED_CURRENCY, preferredCurrency);
         return "buyticket";
     }
 
@@ -85,18 +90,14 @@ public class ExpressController {
     @PostMapping("/confirm")
     public String processTicket(@ModelAttribute("ticket") Ticket ticket, @RequestParam("tripId") Long tripId,
             @RequestParam("creditCardMonth") int creditCardMonth,
-            @RequestParam("creditCardYear") int creditCardYear) {
+            @RequestParam("creditCardYear") int creditCardYear, Model model) {
         ticket.setTrip(service.getTripById(tripId));
         ticket.setCreditCardDate(creditCardYear, creditCardMonth);
         service.saveTicket(ticket);
-        return "redirect:/index";
+        Ticket ticketSaved = service.getTicketById(ticket.getId());
+        model.addAttribute(TICKET_STRING, ticketSaved);
+        return "confirm-ticket";
     }
-
-    // @GetMapping("/trips")
-    // public String showTrips(Model model) {
-    // model.addAttribute("trips", service.getAllTrips());
-    // return "trips";
-    // }
 
     //credencial to access ticket
     @GetMapping("/acessticket")
@@ -108,8 +109,8 @@ public class ExpressController {
     public String showTicket(@RequestParam("ticketId") Long ticketId, @RequestParam("token") String token, Model model){
         Ticket ticket = service.accessTicket(ticketId, token);
         if (ticket != null) {
-            model.addAttribute("ticket", ticket);
-            return "ticket";
+            model.addAttribute(TICKET_STRING, ticket);
+            return "ticket-final";
         }
         return "access-ticket";
     }

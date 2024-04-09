@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.homework.app.repository.TicketRepo;
 import com.homework.app.repository.TripRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import com.homework.app.model.Ticket;
 import com.homework.app.model.Trip;
 
@@ -28,7 +30,7 @@ public class ApiService {
     }
 
 
-    private Ticket getTicketById(Long id) {
+    public Ticket getTicketById(Long id) {
         Optional<Ticket> ticketOptional = ticketRepo.findById(id);
         if (ticketOptional.isPresent()) {
             return ticketOptional.get();
@@ -81,9 +83,6 @@ public class ApiService {
 
     public Trip getTripById(Long id) {
         Optional<Trip> tripOptional = tripRepo.findById(id);
-        if (tripOptional.isPresent()) {
-            return tripOptional.get();
-        }
-        return null;
+        return tripOptional.orElseThrow(() -> new EntityNotFoundException("Trip not found with ID: " + id));
     }
 }

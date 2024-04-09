@@ -3,58 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Buy Ticket</title>
-    <!-- Add any necessary CSS or JavaScript imports here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h2>Confirm Ticket</h2>
-    <p>Trip Details:</p>
-    <p th:text="'Company: ' + ${trip.company}"></p>
-    <p th:text="'Departure: ' + ${trip.depart}"></p>
-    <p th:text="'Arrival: ' + ${trip.arrive}"></p>
-    <p th:text="'Departure Time: ' + ${trip.departTime}"></p>
-    <p th:text="'Arrival Time: ' + ${trip.arriveTime}"></p>
-    <p th:text="'Price: ' + ${trip.price} +' '+ ${preferredCurrency}"></p>
-    
-    <hr>
-    
-    <form action="/confirm" method="post">
-        <!-- <input type="hidden" name="tripId" th:value="${trip.id}" />
-        <input type="hidden" name="price" th:value="${trip.price}" />
-        Add additional fields for ticket details -->
-
-        <input type="hidden" name="tripId" th:value="${trip.id}" />
-        <input type="hidden" name="Userprice" th:value="${trip.price}" />
-        <input type="hidden" name="currency"  th:value="${preferredCurrency}" />
-
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="nif">nif:</label>
-        <input type="text" id="nif" name="nif" pattern="[0-9]{9}" maxlength="9" required>
-        <br>
-        <label for="address">address:</label>
-        <input type="text" id="address" name="address" required>
-        <br>
-        <label for="creditCardId">creditCardId:</label>
-        <input type="text" id="creditCardId" name="creditCardId" pattern="\d{4} \d{4} \d{4} \d{4}" oninput="formatCreditCardId()" maxlength="19" required onkeypress="return onlyDigits(event)">
-        <br>
-        <label for="creditCardName">creditCardName:</label>
-        <input type="text" id="creditCardName" name="creditCardName" required>
-        <br>
-        <label for="creditCardMonth">creditCardMonth:</label>
-        <input type="number" id="creditCardMonth" name="creditCardMonth" required>
-        <br>
-        <label for="creditCardYear">creditCardYear:</label>
-        <input type="number" id="creditCardYear" name="creditCardYear" required>
-        <br>
-        <label for="creditCardCvv">creditCardCvv:</label>
-        <input type="number" id="creditCardCvv" name="creditCardCvv" required>
-        <br>
-        
-        <!-- Add more fields as needed -->
-        <button type="submit">Confirm Ticket</button>
-    </form>
-
+    <div th:replace="navbar"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Trip Details -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Trip Details:</h5>
+                        <p class="card-text">Company: <span th:text="${trip.company}"></span></p>
+                        <p class="card-text">Departure: <span th:text="${trip.depart}"></span></p>
+                        <p class="card-text">Arrival: <span th:text="${trip.arrive}"></span></p>
+                        <p class="card-text">Departure Time: <span th:text="${trip.departTime}"></span></p>
+                        <p class="card-text">Arrival Time: <span th:text="${trip.arriveTime}"></span></p>
+                        <p class="card-text">Price: <span th:text="${trip.price} +' '+ ${preferredCurrency}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Ticket Form -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="mt-5 mb-4 text-center">Confirm Ticket</h2>
+                        <form action="/confirm" method="post" class="needs-validation">
+                            <input type="hidden" name="tripId" th:value="${trip.id}" />
+                            <input type="hidden" name="Userprice" th:value="${trip.price}" />
+                            <input type="hidden" name="currency"  th:value="${preferredCurrency}" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="nif">NIF:</label>
+                                    <input type="text" id="nif" name="nif" class="form-control" pattern="[0-9]{9}" maxlength="9" required onkeypress="return onlyDigits(event)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" id="address" name="address" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="creditCardName">Credit Card Name:</label>
+                                <input type="text" id="creditCardName" name="creditCardName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="creditCardId">Credit Card ID:</label>
+                                <input type="text" id="creditCardId" name="creditCardId" class="form-control" pattern="\d{4} \d{4} \d{4} \d{4}" oninput="formatCreditCardId()" maxlength="19" required onkeypress="return onlyDigits(event)">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="creditCardMonth">Expiration Month:</label>
+                                    <input type="number" id="creditCardMonth" name="creditCardMonth" class="form-control" min="1" max="12" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="creditCardYear">Expiration Year:</label>
+                                    <input type="number" id="creditCardYear" name="creditCardYear" class="form-control" min="2024" max="2050" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="creditCardCvv">CVV:</label>
+                                    <input type="text" id="creditCardCvv" name="creditCardCvv" class="form-control" pattern="\d{3}" maxlength="3"  required onkeypress="return onlyDigits(event)">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Confirm Ticket</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function formatCreditCardId() {
@@ -63,7 +83,6 @@
             let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
             creditCardInput.value = formattedValue;
         }
-
         function onlyDigits(event) {
             const key = event.key;
             return /^\d$/.test(key);

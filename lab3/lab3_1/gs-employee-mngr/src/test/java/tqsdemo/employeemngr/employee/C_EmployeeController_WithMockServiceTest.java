@@ -23,12 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * WebMvcTest loads a simplified web environment for the tests. Note that the normal
- * auto-discovery of beans (and dependency injection) is limited
- * This strategy deploys the required components to a test-friendly web framework, that can be accessed
- * by injecting a MockMvc reference
- */
+
 @WebMvcTest(EmployeeRestController.class)
 class C_EmployeeController_WithMockServiceTest {
 

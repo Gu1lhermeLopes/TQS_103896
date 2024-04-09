@@ -1,5 +1,6 @@
 package com.homework.app.model;
 
+import java.security.SecureRandom;
 import java.time.Year;
 import java.time.YearMonth;
 
@@ -9,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.util.Random;
 
 @Entity
 public class Ticket {
@@ -39,7 +39,6 @@ public class Ticket {
     private String acessToken;
 
     public Ticket() {
-        //this.currency = "EUR";
         this.payment = false;
     }
 
@@ -48,7 +47,7 @@ public class Ticket {
     }
 
     public void generateToken() {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         StringBuilder token = new StringBuilder();
 
         for (int i = 0; i < 4; i++) {

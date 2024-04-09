@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Information</title>
+    <!-- Adding Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        .info-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="navbar"></div>
+    <div class="container mt-5">
+        <h2 class="mb-4">Ticket <span th:text="${ticket.id}"></span> Details</h2>
+
+        <div class="row info-section">
+            <div class="col-md-6">
+                <h3>Trip Details</h3>
+                <p>Company: <span th:text="${ticket.trip.company}"></span></p>
+                <p>Departure: <span th:text="${ticket.trip.departTime} + ' ' + ${ticket.trip.depart}"></span></p>
+                <p>Arrival: <span th:text="${ticket.trip.arriveTime} + ' ' + ${ticket.trip.arrive}"></span></p>
+            </div>
+            <div class="col-md-6">
+                <h3>Person Details</h3>
+                <p>Name: <span th:text="${ticket.name}"></span></p>
+                <p>NIF: <span th:text="${ticket.nif}"></span></p>
+                <p>Address: <span th:text="${ticket.address}"></span></p>
+            </div>
+        </div>
+
+        <div class="row info-section">
+            <div class="col-md-6">
+                <h3>Payment Details</h3>
+                <p>CreditCard Name: <span th:text="${ticket.creditCardName}"></span></p>
+                <p>Number Card: <span th:text="${ticket.creditCardId}"></span></p>
+                <p>Date: <span th:text="${ticket.creditCardDate}"></span></p>
+                <p>CVV: <span th:text="${ticket.creditCardCvv}"></span></p>
+            </div>
+            <div class="col-md-6">
+                <h3>Price</h3>
+                <p>My Price: <span th:text="${ticket.userprice} + ' ' + ${ticket.currency}"></span></p>
+                <p>System Price: <span th:text="${ticket.trip.price} + ' EUR'"></span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

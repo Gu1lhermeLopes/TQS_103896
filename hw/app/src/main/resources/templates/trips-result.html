@@ -8,50 +8,59 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/shards.min.css">
+    <style>
+        .custom-btn {
+            border-color: #ee0979;
+        }
+
+        .custom-btn:hover {
+            background:  linear-gradient(to left, #ee0979, #ff6a00);
+            border-color: white;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div th:replace="navbar"></div>
-<div class="container my-5">
-    <div class="row">
-        <!-- Tickets Table -->
-        <!-- Trips Table -->
-        <div class="col-md-6">
-            <h2>Trips</h2>
-            <table class="table table-striped table-responsive-md">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Company</th>
-                    <th>Departure</th>
-                    <th>Arrival</th>
-                    <th>Departure Time</th>
-                    <th>Arrival Time</th>
-                    <th>Price</th>
-                    <th>Avaible</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="trip : ${trips}">
-                    <td th:text="${trip.id}"></td>
-                    <td th:text="${trip.company}"></td>
-                    <td th:text="${trip.depart}"></td>
-                    <td th:text="${trip.arrive}"></td>
-                    <td th:text="${trip.departTime}"></td>
-                    <td th:text="${trip.arriveTime}"></td>
-                    <td th:text="${trip.price}"></td>
-                    <td th:text="${trip.avaibleSeats}"></td>
-                    <td>
-                        <form action="/buyticket" method="post">
-                            <input type="hidden" name="tripId" th:value="${trip.id}" />
-                            <button type="submit" class="btn btn-primary">Select Trip</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <p><a href="/addtrip" class="btn btn-primary"><i class="fas fa-plus mr-2"></i>Add Trip</a></p>
+    <div class="container my-5">
+        <div class="row">
+            <!-- Tickets Table -->
+            <!-- Trips Table -->
+            <div class="col-md-9">
+                <h2 th:text="'Trips ' + ${city1} + ' to ' + ${city2}"></h2>
+                <table class="table table-hover table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Time</th>
+                        <th>Price</th>
+                        <th>Available</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="trip : ${trips}">
+                        <td th:text="${trip.company}"></td>
+                        <td th:text="${trip.departTime}"></td>
+                        <td th:text="${trip.arriveTime}"></td>
+                        <td th:text="${trip.price} + ' ' +${preferredCurrency}"></td>
+                        <td th:text="${trip.avaibleSeats}"></td>
+                        
+                        <td>
+                            <div th:if="${trip.avaibleSeats > 0}" class="text-center">
+                                <form action="/buyticket" method="post">
+                                    <input type="hidden" name="tripId" th:value="${trip.id}" />
+                                    <button type="submit" class="btn btn-outline-secondary custom-btn">Select Trip</button>
+                                </form>
+                            </div>
+                            <div th:if="${trip.avaibleSeats == 0}" class="text-center">
+                                <span style="color: red;">FULL</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>

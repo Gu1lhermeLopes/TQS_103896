@@ -3,15 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Access Ticket</title>
+    <!-- Adding Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .custom-btn {
+            border-color: #ee0979;
+        }
+
+        .custom-btn:hover {
+            background:  linear-gradient(to left, #ee0979, #ff6a00);
+            border-color: white;
+        }
+    </style>
 </head>
 <body>
-    <h2>Access Ticket</h2>
-    <form action="/ticket" method="post">
-        <label for="ticketId">Ticket ID:</label>
-        <input type="text" id="ticketId" name="ticketId">
-        <label for="token">Token:</label>
-        <input type="text" id="token" name="token">
-        <button type="submit">Submit</button>
-    </form>
+    <div th:replace="navbar"></div>
+    <div class="container mt-5">
+        <h2 class="mb-4">Access Ticket</h2>
+        <form action="/ticket" method="post" class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="ticketId">Ticket ID:</label>
+                    <input type="number" class="form-control" id="ticketId" name="ticketId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="token">Token:</label>
+                    <input type="password" class="form-control" id="token" name="token">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-outline-secondary custom-btn">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Access Information</title>
+    <!-- Adicionando Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body >
+    <div th:replace="navbar"></div>
+
+    <div class="container col-md-4 mt-5">
+        <div class="alert alert-success" role="alert">
+            TICKET BOOKED SUCCESSFULLY
+        </div>
+        <p>Ticket ID: <span th:text="${ticket.id}"class="font-weight-bold"></span></p>
+        <p>Token: <span th:text="${ticket.acessToken}" class="font-weight-bold"></span></p>
+        <div class="alert alert-danger" role="alert">
+            PLEASE SAVE THIS INFORMATION. YOU WILL NEED IT TO ACCESS YOUR TICKET.
+        </div>
+    </div>
+</body>
+</html>

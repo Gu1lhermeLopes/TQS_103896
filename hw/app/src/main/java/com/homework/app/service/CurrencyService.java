@@ -84,7 +84,7 @@ public class CurrencyService {
         if (exchangeRates != null) {
             return new ArrayList<>(exchangeRates.keySet());
         }
-        return null;
+        return Collections.emptyList();
     }
 
     private void refreshExchangeRatesCache() {
